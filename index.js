@@ -8,6 +8,9 @@ const user = require('./model/user');
 // create an express application
 var app = express();
 
+// make use of middle ware
+app.use(bodyParser.json());
+
 // route to post todo
 app.post('/todo',(req,res)=>{
     var todo = new todo({
@@ -25,9 +28,9 @@ app.post('/todo',(req,res)=>{
 app.get('/todos',(req,res)=>{
     todo.find().then((todos)=>{
         res.send(todos);
-    },(err=>{
+    },(err)=>{
         res.status(400).send(err);
-    }));
+    });
 })
 
 // listening for services
