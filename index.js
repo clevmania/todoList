@@ -21,6 +21,15 @@ app.post('/todo',(req,res)=>{
     })
 });
 
+// route to find todos
+app.get('/todos',(req,res)=>{
+    todo.find().then((todos)=>{
+        res.send(todos);
+    },(err=>{
+        res.status(400).send(err);
+    }));
+})
+
 // listening for services
 app.listen(3000,()=>{
     console.log('Started listening for services');
