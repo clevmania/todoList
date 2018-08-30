@@ -9,6 +9,9 @@ var {user} = require('./model/user');
 // create an express application
 var app = express();
 
+// dynamically config port
+const port = process.env.port || 3000;
+
 // make use of middle ware
 app.use(bodyParser.json());
 
@@ -49,6 +52,6 @@ app.get('/todos/:id',(req,res)=>{
 });
 
 // listening for services
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log('Started listening for services');
 });
