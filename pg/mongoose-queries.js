@@ -5,7 +5,7 @@ const {Todo} = require('./../model/todo');
 var id = '5b87070e3c10cf1151c9872';
 
 if(!ObjectId.isValid(id)){
-    return console.log('ID not valid');
+    console.log('ID not valid');
 }
 
 //finding todos

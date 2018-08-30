@@ -37,7 +37,7 @@ app.get('/todos',(req,res)=>{
     });
 });
 
-// route to fetch individual id
+// route to fetch individual todo
 app.get('/todos/:id',(req,res)=>{
     var id = req.params.id
     if(!ObjectID.isValid(req.params.id)){
@@ -49,6 +49,19 @@ app.get('/todos/:id',(req,res)=>{
         }
         res.send({todo});
     }).catch((e)=>{res.status(400).send()});
+});
+
+// route for deleting individual todo
+app.delete('/todos/:id',(req,res)=>{
+    if(!ObjectID.isValid(req.params.id)){
+        return res.status(404).send();
+    }
+    Todo.findByIdAndRemove(req.params.id).then((todo=>{
+        if(!todo){
+            return res.status(404).send();
+        }
+        res.send(todo);
+    }).catch((e)=>{res.status(400).send()}));
 });
 
 // listening for services
