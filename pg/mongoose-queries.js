@@ -1,7 +1,8 @@
 const {mongoose} = require('./../db/mongoose');
+const {ObjectId} = require('mongodb');
 const {Todo} = require('./../model/todo');
 
-var id = '5b87070e3c10cf1151c9872';
+var id = '5b87070e3c10cf1151c98726';
 
 //finding todos
 Todo.find({
@@ -17,7 +18,7 @@ Todo.findById(id).then((todo)=>{
         return console.log('id not found');
     }
     console.log('Showing todo',todo);
-});
+}).catch((e)=>{console.log(e)});
 
 // find one
 // search todo with parameters other than id
