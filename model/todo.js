@@ -15,6 +15,6 @@ var Todo = mongoose.model('Todo',{
         type : Number,
         default : null
     }
-})
+});
 
 module.exports = {Todo};

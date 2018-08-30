@@ -1,9 +1,9 @@
-const bodyParser = require('body-parser');
-const express = require('express');
+var bodyParser = require('body-parser');
+var express = require('express');
 
-const mongoose = require('./db/mongoose');
-const todo = require('./model/todo');
-const user = require('./model/user');
+var {mongoose} = require('./db/mongoose');
+var {Todo} = require('./model/todo');
+var {user} = require('./model/user');
 
 // create an express application
 var app = express();
@@ -12,8 +12,8 @@ var app = express();
 app.use(bodyParser.json());
 
 // route to post todo
-app.post('/todo',(req,res)=>{
-    var todo = new todo({
+app.post('/todos',(req,res)=>{
+    var todo = new Todo({
         text : req.body.text
     });
 
@@ -26,7 +26,7 @@ app.post('/todo',(req,res)=>{
 
 // route to find todos
 app.get('/todos',(req,res)=>{
-    todo.find().then((todos)=>{
+    Todo.find().then((todos)=>{
         res.send(todos);
     },(err)=>{
         res.status(400).send(err);
