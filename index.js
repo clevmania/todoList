@@ -90,17 +90,15 @@ app.patch('/todos/:id',(req,res)=>{
 
 // route for creating a user
 app.post('/users',(req,res)=>{
-    var user = new User({
-        email : req.body.email,
-        password : req.body.password
-    })
-    user.save().then((info)=>{
-        if(!info){
-            return res.status(404).send();
-        }
+    var body = _.pick(req.body,['email','password']);
+    var user = new User(body);
+    user.save().then((user)=>{
+        // if(!info){
+        //     return res.status(404).send();
+        // }
 
-        res.send("User added successfully");
-    }).catch((e)=>{res.status(400).send()});
+        res.send("User created");
+    }).catch((e)=>{res.status(400).send(e)});
 });
 
 // listening for services
