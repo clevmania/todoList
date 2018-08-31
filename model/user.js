@@ -17,7 +17,7 @@ var User = mongoose.model('User',{
         type : String
     },
     tokens : [{
-        acess : {
+        access : {
             type : String,
             required : String
         },

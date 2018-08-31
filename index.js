@@ -1,10 +1,11 @@
-var bodyParser = require('body-parser');
-var express = require('express');
-var {ObjectID} = require('mongodb');
+const bodyParser = require('body-parser');
+const express = require('express');
+const {ObjectID} = require('mongodb');
+const _ = require('lodash');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./model/todo');
-var {user} = require('./model/user');
+var {User} = require('./model/user');
 
 // create an express application
 var app = express();
@@ -61,6 +62,21 @@ app.delete('/todos/:id',(req,res)=>{
             return res.status(404).send();
         }
         res.send(todo);
+    }).catch((e)=>{res.status(400).send()});
+});
+
+// route for creating a user
+app.post('/users',(req,res)=>{
+    var user = new User({
+        email : req.body.email,
+        password : req.body.password
+    })
+    user.save().then((info)=>{
+        if(!info){
+            return res.status(404).send();
+        }
+
+        res.send("User added successfully");
     }).catch((e)=>{res.status(400).send()});
 });
 
