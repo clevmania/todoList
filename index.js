@@ -65,6 +65,29 @@ app.delete('/todos/:id',(req,res)=>{
     }).catch((e)=>{res.status(400).send()});
 });
 
+// route for updating todos
+app.patch('/todos/:id',(req,res)=>{
+    var body = _.pick(req.body, ['text','completed']);
+
+    if(!ObjectID.isValid(req.params.id)){
+        return res.status(404).send();
+    }
+
+    if(_.isBoolean(body.completed)&& body.completed){
+        body.completedAt = new Date().getTime;
+    }else{
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    Todo.findByIdAndUpdate(id,{$set:body},{new : true}).then((todo)=>{
+        if(!todo){
+            return res.status(404).send();
+        }
+        res.send(todo)
+    }).catch((e)=>{res.status(400).send(e)});
+})
+
 // route for creating a user
 app.post('/users',(req,res)=>{
     var user = new User({
