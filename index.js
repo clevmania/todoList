@@ -74,19 +74,19 @@ app.patch('/todos/:id',(req,res)=>{
     }
 
     if(_.isBoolean(body.completed)&& body.completed){
-        body.completedAt = new Date().getTime;
+        body.completedAt = new Date().getTime();
     }else{
         body.completed = false;
         body.completedAt = null;
     }
 
-    Todo.findByIdAndUpdate(id,{$set:body},{new : true}).then((todo)=>{
+    Todo.findByIdAndUpdate(req.params.id,{$set:body},{new : true}).then((todo)=>{
         if(!todo){
             return res.status(404).send();
         }
         res.send(todo)
     }).catch((e)=>{res.status(400).send(e)});
-})
+});
 
 // route for creating a user
 app.post('/users',(req,res)=>{
