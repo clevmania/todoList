@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const validator = require('validator');
+const validator = require('validator');
 
 var User = mongoose.model('User',{
     email : {
@@ -7,11 +7,11 @@ var User = mongoose.model('User',{
         minlength : 1,
         type : String,
         trim : true,
-        unique: true
-        // validate : {
-        //     validator : validator.isEmail,
-        //     message : "{value} is not a valid email"
-        // }
+        unique: true,
+        validate : {
+            validator : validator.isEmail,
+            message : "{value} is not a valid email"
+        }
     },
     password : {
         required : true,
