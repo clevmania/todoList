@@ -92,13 +92,17 @@ app.patch('/todos/:id',(req,res)=>{
 app.post('/users',(req,res)=>{
     var body = _.pick(req.body,['email','password']);
     var user = new User(body);
-    user.save().then((user)=>{
+    user.save().then(()=>{
         // if(!info){
         //     return res.status(404).send();
         // }
+        return user.generateAuthToken();
 
-        res.send("User created");
-    }).catch((e)=>{res.status(400).send(e)});
+        // res.send("User created");
+    }).then((token)=>{
+        res.header('x-auth',token).send(user);
+    })
+    .catch((e)=>{res.status(400).send(e)});
 });
 
 // listening for services

@@ -31,8 +31,6 @@ var UserSchema = new mongoose.Schema({
     }]
 });
 
-var User = mongoose.model('User',UserSchema);
-
 UserSchema.methods.generateAuthToken = function(){
     var user = this;
     var access = 'auth';
@@ -44,5 +42,7 @@ UserSchema.methods.generateAuthToken = function(){
         return token;
     });
 };
+
+var User = mongoose.model('User',UserSchema);
 
 module.exports = {User};
